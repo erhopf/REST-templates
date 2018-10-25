@@ -16,9 +16,9 @@ These template are specifically designed to make a REST call in less than 5 minu
 
 ## Show me the templates!
 
-[Node](./Node/README.md)
-[Python](./NODE/README.md)
+* [Node](./Node/README.md)
+* [Python](./NODE/README.md)
 
 ## Release notes
 
-* **2018-10-25**: First dump of Node.js and Python templates. 
+* **2018-10-25**: First dump of Node.js and Python templates.

@@ -1,5 +1,4 @@
 const request = require('request');
-const util = require('util');
 
 let subscriptionKey = process.env.TRANSLATOR_TEXT_KEY;
 

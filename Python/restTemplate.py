@@ -25,7 +25,7 @@ path = '/translate?api-version=3.0'
 params = '&to=de&to=it'
 constructed_url = base_url + path + params
 
-# The sample headers are pretty straigh forward. Not all services require
+# The sample headers are pretty straight forward. Not all services require
 # X-ClientTraceId. If it's not used in your service it should be removed.
 # This sample assumes that the subscription key can be passed as an
 # Ocp-Apim-Subscription-Key header, however, there are APIs that will require

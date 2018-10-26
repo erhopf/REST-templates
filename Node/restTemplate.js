@@ -21,26 +21,36 @@ The sample headers are pretty straight forward. This sample assumes that the
 subscription key can be passed as an Ocp-Apim-Subscription-Key header, however,
 there are APIs that will require a Authorization header and a Bearer token.
 Only one is required. */
-const options = {
-    method: 'POST',
-    baseUrl: 'https://api.cognitive.microsofttranslator.com/',
-    url: 'translate',
-    qs: {
-      'api-version': '3.0',
-      'to': 'de'
-    },
-    headers: {
-      'Ocp-Apim-Subscription-Key': subscriptionKey,
-      'Content-type': 'application/json',
-    },
-    body: [{
-          'text': 'Hello World! Welcome to Azure!'
-    }],
-    json: true,
+
+/* Don't forget to give your function an apt name. Be descriptive.
+Use your best judgement for how complex you want to make your quickstart
+sample code. With that said, you can add an argument to the function to
+pass a JSON object to the request dynamically. */
+
+function functionName(){
+    const options = {
+        method: 'POST',
+        baseUrl: 'https://api.cognitive.microsofttranslator.com/',
+        url: 'translate',
+        qs: {
+          'api-version': '3.0',
+          'to': 'de'
+        },
+        headers: {
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-type': 'application/json',
+        },
+        body: [{
+              'text': 'Hello World! Welcome to Azure!'
+        }],
+        json: true,
+    };
+
+    /* The result is stringified to ensure that all objects are printed correctly
+    to the terminal. */
+    request(options, function(err, res, body){
+        console.log(JSON.stringify(body, null, 4));
+    });
 };
 
-/* The result is stringified to ensure that all objects are printed correctly
-to the terminal. */
-request(options, function(err, res, body){
-    console.log(JSON.stringify(body, null, 4));
-});
+functionName();

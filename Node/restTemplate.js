@@ -1,6 +1,8 @@
 /* This template relies on the request module, a simplified and user friendly
-way to make HTTP requests. */
+way to make HTTP requests, and UUIDv4 to create a unique ID for the
+X-ClientTraceId header. */
 const request = require('request');
+const uuidv4 = require('uuid/v4');
 
 /* Checks to see if the subscription key is available
 as an environment variable. If you are setting your subscription key as a
@@ -39,6 +41,7 @@ function functionName(){
         headers: {
           'Ocp-Apim-Subscription-Key': subscriptionKey,
           'Content-type': 'application/json',
+          'X-ClientTraceId': uuidv4().toString()
         },
         body: [{
               'text': 'Hello World! Welcome to Azure!'

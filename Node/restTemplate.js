@@ -9,6 +9,9 @@ string, then comment these lines out.
 If you want to set your subscription key as a string, replace the value for
 the Ocp-Apim-Subscription-Key header as a string. */
 let subscriptionKey = process.env.NAME_OF_YOUR_ENV_VARIABLE;
+if (!subscriptionKey) {
+  throw new Error('Environment variable for your subscription key is not set.')
+};
 
 /* Use the options object to declare the method, base URL, resource,
 required parameters, headers, and body. Make note that since the body

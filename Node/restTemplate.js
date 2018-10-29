@@ -30,7 +30,7 @@ sample code. With that said, you can add an argument to the function to
 pass a JSON object to the request dynamically. */
 
 function functionName(){
-    const options = {
+    let options = {
         method: 'POST',
         baseUrl: 'https://api.cognitive.microsofttranslator.com/',
         url: 'translate',

@@ -1,0 +1,13 @@
+This is sample cURL request to the Translator Text Translation endpoint. All
+required arguments are appended to the URL directly. Headers are included using
+the -H option -- there is no limit to the number of headers passed. The
+--data-raw option is used to send up raw JSON data. Raw JSON is used for
+illustrative purposes. In most cases, you would read from a file. For all
+available options, see: https://curl.haxx.se/docs/manpage.html.
+
+Now, on to the sample:
+
+curl -X POST 'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=en&to=es' \
+-H 'Ocp-Apim-Subscription-Key: YOUR_KEY_HERE' \
+-H 'Content-Type: application/json' \
+--data-raw '[{ "text": "Hello World!"}]'

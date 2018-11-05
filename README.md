@@ -21,4 +21,5 @@ These template are specifically designed to make a REST call in less than 5 minu
 
 ## Release notes
 
+* **2018-11-05**: Added a cURL sample. 
 * **2018-10-25**: First dump of Node.js and Python templates.

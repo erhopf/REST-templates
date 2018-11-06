@@ -32,6 +32,13 @@ var app = new Vue({
       }
     ],
   },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.toUpperCase()
+    }
+  },
   methods: {
     onloadAlert: function () {
       alert("This sample code generator is still in Beta. By clicking OK, you agree to test all code before publishing.")

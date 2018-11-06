@@ -2,7 +2,7 @@ The goal is to standardize the way that sample code is written for Cognitive Ser
 
 This guide includes templates that can be used for REST calls and instructions for how to use each.  
 
-## Why should I use these template?
+## Why should I use these templates?
 
 Easy, they improves the developer experience and make life easier for content creators.
 
@@ -14,12 +14,20 @@ Easy, they improves the developer experience and make life easier for content cr
 
 These template are specifically designed to make a REST call in less than 5 minutes. If you are building a tutorial or production application, this is probably not what you’re looking for. However! The templates are idiomatic and use popular libraries -- so I leave it up to you to make the right call for how far you take this ;).  
 
+## Did you say there's a web app?!
+
+Well, I didn't say that, but there is a web app that will automagically create samples in Python, Node.js, and cURL. It's still in beta and a little raw, so let me know if you encounter any issues and I'll be sure to take a look.
+
+* [Sample Generator Web App](https://erhopf.github.io/REST-templates/)
+
 ## Show me the templates!
 
-* [Node](./Node/README.md)
-* [Python](./Python/README.md)
+* [Node](./Node/restTemplate.js)
+* [Python](./Python/restTemplate.py)
+* [cURL](./cURL/restCall.txt)
 
 ## Release notes
 
-* **2018-11-05**: Added a cURL sample. 
+* **2018-11-06**: Published the beta web app.
+* **2018-11-05**: Added a cURL sample.
 * **2018-10-25**: First dump of Node.js and Python templates.

@@ -97,11 +97,14 @@ function {{ functionName }}(){
           <div id="python" class="tab-pane fade"></br>
             <pre>import os, requests, uuid, json
 
-if 'TRANSLATOR_TEXT_KEY' in os.environ:
+if 'NAME_OF_YOUR_ENV_VARIABLE' in os.environ:
     subscriptionKey = os.environ['NAME_OF_YOUR_ENV_VARIABLE']
 else:
     print('Environment variable for your subscription key is not set.')
     exit()
+
+#If you want to set your subscription key as a string, uncomment the next line.
+#subscriptionKey = 'put_your_key_here'
 
 base_url = '{{ baseURL }}'
 path = '{{ resource }}'
@@ -111,8 +114,7 @@ params = {<template v-for='param in params' v-if='(param.key.length > 0 && param
 
 constructed_url = base_url + path
 
-headers = {
-    <span v-if="authHeaders.includes('subscriptionKey')">'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')">'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br />&emsp;&emsp;&emsp;&emsp;'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br />&emsp;&emsp;&emsp;&emsp;'X-ClientTraceId': str(uuid.uuid4())</span>
+headers = {<span v-if="authHeaders.includes('subscriptionKey')"><br />&emsp;&emsp;&emsp;&emsp;'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br />&emsp;&emsp;&emsp;&emsp;'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br />&emsp;&emsp;&emsp;&emsp;'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br />&emsp;&emsp;&emsp;&emsp;'X-ClientTraceId': str(uuid.uuid4())</span>
 }
 
 body = [{{ jsonBody }}]

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Generate REST samples for Azure Cognitive Services</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="alert alert-danger" role="alert" align="center">
+      <strong>This generator is still in Beta. All code samples require thorough review and testing before being published. See known issues for details.</strong>
+    </div>
+  <div class="container">
+    <div id="app">
+      <div class="row">
+      <div class="col-md-5" id="formInputs">
+      <h2>Inputs</h2>
+      <p>Name your function: <br/>
+      <input v-model="functionName" placeholder="e.g. testCall" class="form-control"></p>
+      <p>Enter the base URL: <br/>
+      <input v-model="baseURL" placeholder="e.g. https://azure.microsoft.com/" class="form-control"></p>
+      <p>Enter the resource/endpoint: <br/>
+      <input v-model="resource" placeholder="e.g. translate-text" class="form-control"></p>
+      <p>Select authorization type: <br/>
+        <input type="radio" id="subscriptionKey" value="subscriptionKey" v-model="authHeaders" class="form-check-input">
+        <label for="subscriptionKey">Ocp-Apim-Subscription-Key</label><br />
+        <input type="radio" id="accessToken" value="accessToken" v-model="authHeaders" class="form-check-input" >
+        <label for="accessToken">Authorization: Bearer</label></p>
+      <p>Select content type: <br />
+        <select v-model="contentTypeHeader">
+        <option disabled value="">Please select one</option>
+        <option>application/json</option>
+        <option>multipart/form-data</option>
+        <option>audio/wav</option>
+        </select>
+      <p>Select optional headers: <br />
+        <input type="checkbox" id="xTraceIdHeader" value="xClientTraceId" v-model="optionalHeaders" class="form-check-input" >
+        <label for="xTraceIdHeader">X-ClientTraceId</label></p>
+      <p>Select HTTP request method: <br/>
+         <input type="radio" id="GET" value="get" v-model="httpMethod" class="form-check-input" >
+         <label for="GET">GET &nbsp;</label>
+         <input type="radio" id="POST" value="post" v-model="httpMethod" class="form-check-input" >
+         <label for="two">POST &nbsp;</label>
+         <input type="radio" id="PUT" value="put" v-model="httpMethod" class="form-check-input" >
+         <label for="put">PUT &nbsp;</label>
+         <input type="radio" id="DELETE" value="delete" v-model="httpMethod" class="form-check-input" >
+         <label for="put">DELETE &nbsp;</label></p>
+      <p>Set request parameters: <br/>
+        Key: <input v-model="params[0].key" placeholder="Key"> Value: <input v-model="params[0].value" placeholder="Value"><br/>
+        Key: <input v-model="params[1].key" placeholder="Key"> Value: <input v-model="params[1].value" placeholder="Value"><br/>
+        Key: <input v-model="params[2].key" placeholder="Key"> Value: <input v-model="params[2].value" placeholder="Value"><br/>
+        Key: <input v-model="params[3].key" placeholder="Key"> Value: <input v-model="params[3].value" placeholder="Value"></p>
+      <p>Request body (must be valid JSON): <br/>
+        <textarea v-model="jsonBody" placeholder="Enter valid JSON for your request." class="form-control" rows="6"></textarea></p>
+    </div>
+    <div class="col-md-7" id="codeSamples">
+      <h2>Code Samples</h2>
+      <p>Code samples have been generated in the following languages based on your inputs.</p>
+      <div class="alert alert-warning" role="alert"><strong>IMPORTANT! </strong>Test all code before adding it to your documentation!</div>
+      <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#node">Node.js</a></li>
+        <li><a data-toggle="pill" href="#python">Python</a></li>
+        <li><a data-toggle="pill" href="#go">Go</a></li>
+      </ul>
+        <div class="tab-content">
+          <div id="node" class="tab-pane fade in active"></br>
+            <pre>const request = require('request');
+const uuidv4 = require('uuid/v4');
+const subscriptionKey = process.env.YOUR_ENV_VARIABLE;
+if (!subscriptionKey) {
+    throw new Error('Environment variable for your subscription key is not set.')
+};
+function {{ functionName }}(){
+    let options = {
+        method: '{{ httpMethod }}',
+        baseUrl: '{{ baseURL }}',
+        url: '{{ resource }}',
+        qs: {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
+            '{{ param.key }}': '{{ param.value }}',</template>
+        },
+        headers: {
+            <span v-if="authHeaders.includes('subscriptionKey')">'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')">'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br />&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br />&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;'X-ClientTraceId': uuidv4().toString()</span>
+        },
+        body: [ {{ jsonBody }}],
+        json: true,
+    };
+    request(options, function(err, res, body){
+        console.log(JSON.stringify(body, null, 4));
+    });
+};
+
+{{ functionName }}();</pre>
+          </div>
+          <div id="python" class="tab-pane fade"></br>
+            <pre>import os, requests, uuid, json
+
+if 'TRANSLATOR_TEXT_KEY' in os.environ:
+    subscriptionKey = os.environ['NAME_OF_YOUR_ENV_VARIABLE']
+else:
+    print('Environment variable for your subscription key is not set.')
+    exit()
+
+base_url = '{{ baseURL }}'
+path = '{{ resource }}'
+params = {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
+    '{{ param.key }}': '{{ param.value }}',</template>
+}
+
+constructed_url = base_url + path
+
+headers: {
+    <span v-if="authHeaders.includes('subscriptionKey')">'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')">'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br />&emsp;&emsp;&emsp;&emsp;'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br />&emsp;&emsp;&emsp;&emsp;'X-ClientTraceId': str(uuid.uuid4())</span>
+},
+
+body = [{{ jsonBody }}]
+
+request = requests.{{ httpMethod }}(constructed_url, <span v-if="params[0].key.length >= 1">params=params, </span>headers=headers<span v-if="jsonBody.length >= 1">, json=body</span>)
+response = request.json()
+
+print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))</pre>
+          </div>
+          <div id="go" class="tab-pane fade"></br>
+            <p>Coming soon...</p>
+            <template v-for="header in authHeaders"> {{ header }} </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    <script type="text/javascript" src="js/script.js"></script>
+  </body>
+</html>

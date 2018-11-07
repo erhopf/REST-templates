@@ -62,8 +62,8 @@
       <ul class="nav nav-pills">
         <li class="active"><a data-toggle="pill" href="#node">Node.js</a></li>
         <li><a data-toggle="pill" href="#python">Python</a></li>
-        <li><a data-toggle="pill" href="#go">Go</a></li>
         <li><a data-toggle="pill" href="#curl">cURL</a></li>
+        <li><a data-toggle="pill" href="#go">Go</a></li>
       </ul>
         <div class="tab-content">
           <div id="node" class="tab-pane fade in active"></br>
@@ -92,6 +92,7 @@ function {{ functionName }}(){
 };
 
 {{ functionName }}();</pre>
+          <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="python" class="tab-pane fade"></br>
             <pre>import os, requests, uuid, json
@@ -123,6 +124,7 @@ request = requests.{{ httpMethod }}(constructed_url, <span v-if="params[0].key.l
 response = request.json()
 
 print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))</pre>
+          <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="go" class="tab-pane fade"></br>
             <p>Coming soon...</p>
@@ -130,6 +132,7 @@ print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separat
           <div id="curl" class="tab-pane fade"></br>
             <div class="alert alert-info" role="alert">When using this tool to create a cURL request, please make sure that you do not use the same delimiters for the request and within the JSON body. For example: <br /><code>--data-raw '[{"text": "And the world stood still. But only for a single moment."}]'</code></div>
             <pre>curl -X {{ httpMethod | capitalize }} '{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value }}</span><span v-if="params[3].key.length >= 1 && params[3].value.length >= 1">&{{params[3].key}}={{ params[3].value }}</span>' <span v-if="authHeaders.includes('subscriptionKey')">\<br />-H 'Ocp-Apim-Subscription-Key: YOUR_SUBSCRIPTION_KEY' </span><span v-if="authHeaders.includes('accessToken')">-H 'Authorization: Bearer YOUR_TOKEN_HERE' </span><span v-if='contentTypeHeader.length > 1'>\<br />-H 'Content-Type: {{contentTypeHeader}}' </span><span v-if="jsonBody.length >= 1">\<br />--data-raw '[{{ jsonBody }}]'</span> | json_pp</pre>
+            <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
         </div>
       </div>

@@ -31,6 +31,9 @@ var app = new Vue({
         value: '',
       }
     ],
+    asciiTab: '&#32;&#32;&#32;&#32;',
+    asciiDoubleTab: '&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;',
+    asciiTripleTab: '&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;',
   },
   filters: {
     capitalize: function (value) {

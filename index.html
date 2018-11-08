@@ -5,12 +5,14 @@
     <title>Generate REST samples for Azure Cognitive Services</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap-social.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div class="alert alert-danger" role="alert" align="center">
-      <strong>This generator is still in Beta. All code samples require thorough review and testing before being published. See known issues for details.</strong>
+      <strong>This generator is still in Beta. All code samples require thorough review and testing before being published. <br />Found a bug? <a href="https://github.com/erhopf/REST-templates/issues/new">Create an issue</a>.</strong>
     </div>
   <div class="container">
     <div id="app">
@@ -58,8 +60,7 @@
     <div class="col-md-7" id="codeSamples">
       <h2>Code Samples</h2>
       <p>Code samples have been generated in the following languages based on your inputs.</p>
-      <div class="alert alert-warning" role="alert"><strong>IMPORTANT! </strong>Test all code before adding it to your documentation!</div>
-      <ul class="nav nav-pills">
+      <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="pill" href="#node">Node.js</a></li>
         <li><a data-toggle="pill" href="#python">Python</a></li>
         <li><a data-toggle="pill" href="#curl">cURL</a></li>
@@ -67,6 +68,10 @@
       </ul>
         <div class="tab-content">
           <div id="node" class="tab-pane fade in active"></br>
+            <div id="git-btn-node" align="right">
+            <a href="https://github.com/erhopf/REST-templates/edit/master/Node/restTemplate.js" target="_blank" class="btn btn-social btn-sm btn-github">
+              <span class="fa fa-github"></span> Improve this template!
+            </a></div>
             <pre>const request = require('request');
 const uuidv4 = require('uuid/v4');
 const subscriptionKey = process.env.YOUR_ENV_VARIABLE;
@@ -95,6 +100,10 @@ function {{ functionName }}(){
           <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="python" class="tab-pane fade"></br>
+            <div id="git-btn-py" align="right">
+            <a href="https://github.com/erhopf/REST-templates/edit/master/Python/restTemplate.py" target="_blank" class="btn btn-social btn-sm btn-github">
+              <span class="fa fa-github"></span> Improve this template!
+            </a></div>
             <pre>import os, requests, uuid, json
 
 if 'NAME_OF_YOUR_ENV_VARIABLE' in os.environ:
@@ -131,6 +140,10 @@ print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separat
           </div>
           <div id="curl" class="tab-pane fade"></br>
             <div class="alert alert-info" role="alert">When using this tool to create a cURL request, please make sure that you do not use the same delimiters for the request and within the JSON body. For example: <br /><code>--data-raw '[{"text": "And the world stood still. But only for a single moment."}]'</code></div>
+            <div id="git-btn-curl" align="right">
+            <a href="https://github.com/erhopf/REST-templates/blob/master/cURL/restCall.txt" target="_blank" class="btn btn-social btn-sm btn-github">
+              <span class="fa fa-github"></span> Improve this template!
+            </a></div>
             <pre>curl -X {{ httpMethod | capitalize }} '{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value }}</span><span v-if="params[3].key.length >= 1 && params[3].value.length >= 1">&{{params[3].key}}={{ params[3].value }}</span>' <span v-if="authHeaders.includes('subscriptionKey')">\<br />-H 'Ocp-Apim-Subscription-Key: YOUR_SUBSCRIPTION_KEY' </span><span v-if="authHeaders.includes('accessToken')">-H 'Authorization: Bearer YOUR_TOKEN_HERE' </span><span v-if='contentTypeHeader.length > 1'>\<br />-H 'Content-Type: {{contentTypeHeader}}' </span><span v-if="jsonBody.length >= 1">\<br />--data-raw '[{{ jsonBody }}]'</span> | json_pp</pre>
             <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>

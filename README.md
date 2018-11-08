@@ -28,6 +28,7 @@ Well, I didn't say that, but there is a web app that will automagically create s
 
 ## Release notes
 
+* **2018-11-08**: Added improve on GitHub button and report issues link to the web app.
 * **2018-11-06**: Published the beta web app.
 * **2018-11-05**: Added a cURL sample.
 * **2018-10-25**: First dump of Node.js and Python templates.

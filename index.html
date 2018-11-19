@@ -86,7 +86,7 @@ function {{ functionName }}(){
         qs: {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
             '{{ param.key }}': '{{ param.value }}',</template>
         },
-        headers: {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiTripleTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiTripleTab"></span>'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiTripleTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiTripleTab"></span>'X-ClientTraceId': uuidv4().toString()</span>
+        headers: {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiTripleTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiTripleTab"></span>'Authorization': 'Bearer YOUR_TOKEN_HERE'</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiTripleTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiTripleTab"></span>'X-ClientTraceId': uuidv4().toString()</span>
         },
         body: [ {{ jsonBody }}],
         json: true,

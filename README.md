@@ -22,12 +22,15 @@ Well, I didn't say that, but there is a web app that will automagically create s
 
 ## Show me the templates!
 
+* [.NET Core](./DotNET/restTemplateSimple.cs)
+* [Java (Gradle)](./Java/restTemplateSimple.java)
 * [Node](./Node/restTemplate.js)
 * [Python](./Python/restTemplate.py)
 * [cURL](./cURL/restCall.txt)
 
 ## Release notes
 
+* **2018-11-30**: Added templates for Java and .NET Core. These aren't available in the generator yet. Please note, that these are for simple HTTP requests. Templates will be added with sample code for writing to file and exchanging access tokens.
 * **2018-11-08**: Added improve on GitHub button and report issues link to the web app.
 * **2018-11-06**: Published the beta web app.
 * **2018-11-05**: Added a cURL sample.

@@ -17,7 +17,7 @@ public class Translate {
     OkHttpClient client = new OkHttpClient();
 
     // This function performs a POST request.
-    public String Post() throws IOException {
+    public String post() throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         /*
          * Creates the body of the request. This sample is structure for
@@ -51,7 +51,7 @@ public class Translate {
     public static void main(String[] args) {
         try {
             Translate translateRequest = new Translate();
-            String response = translateRequest.Post();
+            String response = translateRequest.post();
             System.out.println(prettify(response));
         } catch (Exception e) {
             System.out.println(e);

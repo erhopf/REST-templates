@@ -88,7 +88,7 @@ function {{ functionName }}(){
         },
         headers: {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiTripleTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiTripleTab"></span>'Authorization': 'Bearer YOUR_TOKEN_HERE'</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiTripleTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiTripleTab"></span>'X-ClientTraceId': uuidv4().toString()</span>
         },
-        body: [ {{ jsonBody }}],
+        body: {{ jsonBody }},
         json: true,
     };
     request(options, function(err, res, body){
@@ -127,7 +127,7 @@ constructed_url = base_url + path
 headers = {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiTab"></span>'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiTab"></span>'X-ClientTraceId': str(uuid.uuid4())</span>
 }
 
-body = [{{ jsonBody }}]
+body = {{ jsonBody }}
 
 request = requests.{{ httpMethod }}(constructed_url, <span v-if="params[0].key.length >= 1">params=params, </span>headers=headers<span v-if="jsonBody.length >= 1">, json=body</span>)
 response = request.json()
@@ -144,7 +144,7 @@ print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separat
             <a href="https://github.com/erhopf/REST-templates/blob/master/cURL/restCall.txt" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
             </a></div>
-            <pre>curl -X {{ httpMethod | capitalize }} '{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value }}</span><span v-if="params[3].key.length >= 1 && params[3].value.length >= 1">&{{params[3].key}}={{ params[3].value }}</span>' <span v-if="authHeaders.includes('subscriptionKey')">\<br />-H 'Ocp-Apim-Subscription-Key: YOUR_SUBSCRIPTION_KEY' </span><span v-if="authHeaders.includes('accessToken')">-H 'Authorization: Bearer YOUR_TOKEN_HERE' </span><span v-if='contentTypeHeader.length > 1'>\<br />-H 'Content-Type: {{contentTypeHeader}}' </span><span v-if="jsonBody.length >= 1">\<br />--data-raw '[{{ jsonBody }}]'</span> | json_pp</pre>
+            <pre>curl -X {{ httpMethod | capitalize }} '{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value }}</span><span v-if="params[3].key.length >= 1 && params[3].value.length >= 1">&{{params[3].key}}={{ params[3].value }}</span>' <span v-if="authHeaders.includes('subscriptionKey')">\<br />-H 'Ocp-Apim-Subscription-Key: YOUR_SUBSCRIPTION_KEY' </span><span v-if="authHeaders.includes('accessToken')">-H 'Authorization: Bearer YOUR_TOKEN_HERE' </span><span v-if='contentTypeHeader.length > 1'>\<br />-H 'Content-Type: {{contentTypeHeader}}' </span><span v-if="jsonBody.length >= 1">\<br />--data-raw '{{ jsonBody }}'</span> | json_pp</pre>
             <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
         </div>

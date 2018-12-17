@@ -12,7 +12,7 @@ Easy, they improves the developer experience and make life easier for content cr
 
 ## When not to use these templates...
 
-These template are specifically designed to make a REST call in less than 5 minutes. If you are building a tutorial or production application, this is probably not what you’re looking for. However! The templates are idiomatic and use popular libraries -- so I leave it up to you to make the right call for how far you take this ;).  
+These templates are specifically designed to make a simple REST call in less than 5 minutes. If you are building a tutorial or production application, this is probably not what you’re looking for. However! The templates are idiomatic and use popular libraries -- so I leave it up to you to make the right call for how far you take this ;).  
 
 ## Did you say there's a web app?!
 

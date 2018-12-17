@@ -64,6 +64,7 @@
         <li class="active"><a data-toggle="pill" href="#node">Node.js</a></li>
         <li><a data-toggle="pill" href="#python">Python</a></li>
         <li><a data-toggle="pill" href="#go">Go</a></li>
+        <li><a data-toggle="pill" href="#java">Java</a></li>
         <li><a data-toggle="pill" href="#curl">cURL</a></li>
       </ul>
         <div class="tab-content">
@@ -201,6 +202,54 @@ func {{ functionName }}(subscriptionKey string) {
             <pre>curl -X {{ httpMethod | capitalize }} '{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value | encodeUrl }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value | encodeUrl }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value | encodeUrl }}</span><span v-if="params[3].key.length >= 1 && params[3].value.length >= 1">&{{params[3].key}}={{ params[3].value | encodeUrl }}</span>' <span v-if="authHeaders.includes('subscriptionKey')">\<br />-H 'Ocp-Apim-Subscription-Key: YOUR_SUBSCRIPTION_KEY' </span><span v-if="authHeaders.includes('accessToken')">\<br />-H 'Authorization: Bearer YOUR_TOKEN_HERE' </span><span v-if='contentTypeHeader.length > 1'>\<br />-H 'Content-Type: {{contentTypeHeader}}' </span><span v-if="jsonBody.length >= 1">\<br />--data-raw '{{ jsonBody }}'</span> | json_pp</pre>
             <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
+          <div id="java" class="tab-pane fade"></br>
+            <div id="git-btn-curl" align="right">
+            <a href="https://github.com/erhopf/REST-templates/blob/master/cURL/resTemplate.java" target="_blank" class="btn btn-social btn-sm btn-github">
+              <span class="fa fa-github"></span> Improve this template!
+            </a></div>
+            <pre>import java.io.*;
+import java.net.*;
+import java.util.*;
+import com.google.gson.*;
+import com.squareup.okhttp.*;
+
+public class {{functionName}} {
+    String subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
+    String url = "{{ baseURL }}{{ resource }}<span v-if="params[0].key.length >= 1 && params[0].value.length >= 1">?{{params[0].key}}={{ params[0].value | encodeUrl }}</span><span v-if="params[1].key.length >= 1 && params[1].value.length >= 1">&{{params[1].key}}={{ params[1].value | encodeUrl }}</span><span v-if="params[2].key.length >= 1 && params[2].value.length >= 1">&{{params[2].key}}={{ params[2].value | encodeUrl }}</span>";
+
+    OkHttpClient client = new OkHttpClient();
+
+    public String {{ httpMethod }}() throws IOException {
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType,
+                "[{\n\t\"Text\": \"Welcome to Microsoft Translator. Guess how many languages I speak!\"\n}]");
+        Request request = new Request.Builder()
+                .url(url).{{ httpMethod }}(body)
+                // Add additional headers here.
+                .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
+                .addHeader("Content-type", "application/json").build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    public static String prettify(String json_text) {
+        JsonParser parser = new JsonParser();
+        JsonElement json = parser.parse(json_text);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(json);
+    }
+
+    public static void main(String[] args) {
+        try {
+            {{functionName}} sampleRequest = new {{functionName}}();
+            String response = sampleRequest.post();
+            System.out.println(prettify(response));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+            </pre>
         </div>
       </div>
     </div>

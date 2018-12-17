@@ -40,6 +40,11 @@ var app = new Vue({
       if (!value) return ''
       value = value.toString()
       return value.toUpperCase()
+    },
+    encodeUrl: function (value) {
+      if (!value) return ''
+      value = encodeURI(value)
+      return value
     }
   },
   methods: {

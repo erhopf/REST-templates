@@ -16,7 +16,7 @@ These template are specifically designed to make a REST call in less than 5 minu
 
 ## Did you say there's a web app?!
 
-Well, I didn't say that, but there is a web app that will automagically create samples in Python, Node.js, and cURL. It's still in beta and a little raw, so let me know if you encounter any issues and I'll be sure to take a look.
+Well, I didn't say that, but there is a web app that will automagically create samples in Python, Node.js, Go, and cURL. It's still in beta and a little raw, so let me know if you encounter any issues and I'll be sure to take a look.
 
 * [Sample Generator Web App](https://erhopf.github.io/REST-templates/)
 
@@ -31,7 +31,8 @@ Well, I didn't say that, but there is a web app that will automagically create s
 
 ## Release notes
 
-* **2018-12-05**: Added preliminary Go template. Please note: this template is not available via the Generator yet. 
+* **2018-12-17**: Added Go support to the samples generator. Also fixed a handful of known issues/bugs. Please add any issues you encounter :metal:.
+* **2018-12-05**: Added preliminary Go template. Please note: this template is not available via the Generator yet.
 * **2018-11-30**: Added templates for Java and .NET Core. These aren't available in the generator yet. Please note, that these are for simple HTTP requests. Templates will be added with sample code for writing to file and exchanging access tokens.
 * **2018-11-08**: Added improve on GitHub button and report issues link to the web app.
 * **2018-11-06**: Published the beta web app.

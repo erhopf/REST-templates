@@ -63,8 +63,8 @@
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="pill" href="#node">Node.js</a></li>
         <li><a data-toggle="pill" href="#python">Python</a></li>
-        <li><a data-toggle="pill" href="#curl">cURL</a></li>
         <li><a data-toggle="pill" href="#go">Go</a></li>
+        <li><a data-toggle="pill" href="#curl">cURL</a></li>
       </ul>
         <div class="tab-content">
           <div id="node" class="tab-pane fade in active"></br>
@@ -103,7 +103,7 @@ function {{ functionName }}(){
             <a href="https://github.com/erhopf/REST-templates/edit/master/Python/restTemplate.py" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
             </a></div>
-            <pre>import os, requests, <span v-if="optionalHeaders.includes('xClientTraceId')">uuid,</span> json
+            <pre>import os, requests,<span v-if="optionalHeaders.includes('xClientTraceId')"> uuid,</span> json
 
 if 'NAME_OF_YOUR_ENV_VARIABLE' in os.environ:
     subscriptionKey = os.environ['NAME_OF_YOUR_ENV_VARIABLE']
@@ -135,7 +135,62 @@ print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separat
           <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="go" class="tab-pane fade"></br>
-            <p>Coming soon...</p>
+            <div class="alert alert-info" role="alert">The sample generator doesn't support <code>X-ClientTraceId</code> for Go at this time.</div>
+            <div id="git-btn-py" align="right">
+            <a href="https://github.com/erhopf/REST-templates/blob/master/GoLang/restTemplate.go" target="_blank" class="btn btn-social btn-sm btn-github">
+              <span class="fa fa-github"></span> Improve this template!
+            </a></div>
+            <pre>package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "log"
+    "net/http"
+    "net/url"
+    "os"
+)
+
+func main() {
+    subscriptionKey := os.Getenv("YOUR_SUBSCRIPTION_KEY")
+    if subscriptionKey == "" {
+        log.Fatal("Environment variable YOUR_SUBSCRIPTION_KEY is not set.")
+    }
+    {{ functionName }}(subscriptionKey)
+}
+
+func {{ functionName }}(subscriptionKey string) {
+    u, _ := url.Parse("{{ baseURL }}{{ resource }}")
+    q := u.Query()<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
+    q.Add("{{ param.key }}", "{{ param.value }}")</template>
+    u.RawQuery = q.Encode()
+    <span v-if='jsonBody.length >= 1'>body := []struct {
+        Text string
+    }{
+        {{ jsonBody }}
+    }
+    b, _ := json.Marshal(body)</span>
+    req, err := http.NewRequest("{{ httpMethod | capitalize }}", u.String(), <span v-if="jsonBody.length >= 1">bytes.NewBuffer(b)</span><span v-if="jsonBody.length < 1">nil</span>)
+    if err != nil {
+        log.Fatal(err)
+    }
+    <span v-if="authHeaders.includes('subscriptionKey')">req.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)</span><span v-if="authHeaders.includes('accessToken')">req.Header.Add("Authorization", "Bearer YOUR_TOKEN_HERE")</span><span v-if='contentTypeHeader.length > 1'><br /><span v-html="asciiTab"></span>req.Header.Add("Content-Type", "{{ contentTypeHeader }}")</span>
+
+    res, err := http.DefaultClient.Do(req)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    var result interface{}
+    if err := json.NewDecoder(res.Body).Decode(&result); err != nil {
+      log.Fatal(err)
+    }
+
+    prettyJSON, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Printf("%s\n", prettyJSON)
+}</pre>
+            <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="curl" class="tab-pane fade"></br>
             <div class="alert alert-info" role="alert">When using this tool to create a cURL request, please make sure that you do not use the same delimiters for the request and within the JSON body. For example: <br /><code>--data-raw '[{"text": "And the world stood still. But only for a single moment."}]'</code></div>

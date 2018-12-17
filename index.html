@@ -72,8 +72,7 @@
             <a href="https://github.com/erhopf/REST-templates/edit/master/Node/restTemplate.js" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
             </a></div>
-            <pre>const request = require('request');
-const uuidv4 = require('uuid/v4');
+            <pre>const request = require('request');<span v-if="optionalHeaders.includes('xClientTraceId')"><br/>const uuidv4 = require('uuid/v4');</span>
 const subscriptionKey = process.env.YOUR_ENV_VARIABLE;
 if (!subscriptionKey) {
     throw new Error('Environment variable for your subscription key is not set.')
@@ -104,7 +103,7 @@ function {{ functionName }}(){
             <a href="https://github.com/erhopf/REST-templates/edit/master/Python/restTemplate.py" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
             </a></div>
-            <pre>import os, requests, uuid, json
+            <pre>import os, requests, <span v-if="optionalHeaders.includes('xClientTraceId')">uuid,</span> json
 
 if 'NAME_OF_YOUR_ENV_VARIABLE' in os.environ:
     subscriptionKey = os.environ['NAME_OF_YOUR_ENV_VARIABLE']

@@ -4,7 +4,7 @@ var app = new Vue({
     this.onloadAlert()
   },
   data: {
-    functionName: '',
+    functionName: 'replaceMe',
     baseURL: '',
     resource: '',
     jsonBody: '',

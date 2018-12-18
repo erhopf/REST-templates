@@ -116,23 +116,25 @@ else:
 #and delete the condition statement that starts with if and ends with exit().
 #subscriptionKey = 'put_your_key_here'
 
-base_url = '{{ baseURL }}'
-path = '{{ resource }}'
-params = {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
-    '{{ param.key }}': '{{ param.value }}',</template>
-}
+def {{ functionName }}:
+    base_url = '{{ baseURL }}'
+    path = '{{ resource }}'
+    params = {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
+        '{{ param.key }}': '{{ param.value }}',</template>
+    }
 
-constructed_url = base_url + path
+    constructed_url = base_url + path
 
-headers = {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiTab"></span>'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiTab"></span>'X-ClientTraceId': str(uuid.uuid4())</span>
-}
+    headers = {<span v-if="authHeaders.includes('subscriptionKey')"><br /><span v-html="asciiDoubleTab"></span>'Ocp-Apim-Subscription-Key': subscriptionKey</span><span v-if="authHeaders.includes('accessToken')"><br /><span v-html="asciiDoubleTab"></span>'Authorization': Bearer YOUR_TOKEN_HERE</span><span v-if='contentTypeHeader.length > 1'>,<br /><span v-html="asciiDoubleTab"></span>'Content-Type': '{{contentTypeHeader}}'</span><span v-if="optionalHeaders.includes('xClientTraceId')">,<br /><span v-html="asciiDoubleTab"></span>'X-ClientTraceId': str(uuid.uuid4())</span>
+    }
+    <span v-if="jsonBody.length >= 1"><br /><span v-html="asciiTab"></span>body = {{ jsonBody }}<br /></span>
+    request = requests.{{ httpMethod }}(constructed_url, <span v-if="params[0].key.length >= 1">params=params, </span>headers=headers<span v-if="jsonBody.length >= 1">, json=body</span>)
+    response = request.json()
 
-body = {{ jsonBody }}
+    print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))
 
-request = requests.{{ httpMethod }}(constructed_url, <span v-if="params[0].key.length >= 1">params=params, </span>headers=headers<span v-if="jsonBody.length >= 1">, json=body</span>)
-response = request.json()
-
-print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))</pre>
+if __name__ = "__main__":
+    {{ functionName }}()</pre>
           <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="go" class="tab-pane fade"></br>
@@ -204,7 +206,7 @@ func {{ functionName }}(subscriptionKey string) {
           </div>
           <div id="java" class="tab-pane fade"></br>
             <div id="git-btn-curl" align="right">
-            <a href="https://github.com/erhopf/REST-templates/blob/master/cURL/resTemplate.java" target="_blank" class="btn btn-social btn-sm btn-github">
+            <a href="https://github.com/erhopf/REST-templates/blob/master/Java/restTemplateSimple.java" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
             </a></div>
             <pre>import java.io.*;
@@ -222,12 +224,10 @@ public class {{functionName}} {
     public String {{ httpMethod }}() throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
-                "[{\n\t\"Text\": \"Welcome to Microsoft Translator. Guess how many languages I speak!\"\n}]");
+                "{{ jsonBody }}");
         Request request = new Request.Builder()
                 .url(url).{{ httpMethod }}(body)
-                // Add additional headers here.
-                .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
-                .addHeader("Content-type", "application/json").build();
+                <span v-if="authHeaders.includes('subscriptionKey')">.addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)</span><span v-if="authHeaders.includes('accessToken')">.addHeader("Authorization", "Bearer YOUR_ACCESS_TOKEN")</span><span v-if="contentTypeHeader.length > 1"><br/><span v-html="asciiQuadTab"></span>.addHeader("Content-type", "{{contentTypeHeader}}")</span><br /><span v-html="asciiQuadTab"></span>.build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
@@ -248,8 +248,7 @@ public class {{functionName}} {
             System.out.println(e);
         }
     }
-}
-            </pre>
+}</pre>
         </div>
       </div>
     </div>

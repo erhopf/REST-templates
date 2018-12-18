@@ -31,6 +31,7 @@ Well, I didn't say that, but there is a web app that will automagically create s
 
 ## Release notes
 
+* **2018-12-18**: Added Java support to the samples Generator. Requires Gradle and JDK 8 or later.
 * **2018-12-17**: Added Go support to the samples generator. Also fixed a handful of known issues/bugs. Please add any issues you encounter :metal:.
 * **2018-12-05**: Added preliminary Go template. Please note: this template is not available via the Generator yet.
 * **2018-11-30**: Added templates for Java and .NET Core. These aren't available in the generator yet. Please note, that these are for simple HTTP requests. Templates will be added with sample code for writing to file and exchanging access tokens.

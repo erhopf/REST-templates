@@ -19,7 +19,7 @@
       <div class="row">
       <div class="col-md-5" id="formInputs">
       <h2>Inputs</h2>
-      <p>Name your function: <br/>
+      <p>Name your function (or class): <br/>
       <input v-model="functionName" placeholder="e.g. testCall" class="form-control"></p>
       <p>Enter the base URL: <br/>
       <input v-model="baseURL" placeholder="e.g. https://azure.microsoft.com/" class="form-control"></p>
@@ -205,6 +205,35 @@ func {{ functionName }}(subscriptionKey string) {
             <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>
           <div id="java" class="tab-pane fade"></br>
+            <div class="alert alert-info" role="alert">The sample generator doesn't support <code>X-ClientTraceId</code> for Java at this time.</div>
+            <p>This Java sample requires <a href="https://gradle.org/install/">Gradle</a> and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK 8</a> or later. The samples below provide both a <code>build.gradle.kts</code> and a Java file.</p>
+            <p>Follow these instructions to create a Gradle project:
+              <ul>
+                <li>Create a new folder or navigate to the working directory for your project.</li>
+                <li>Run: <code>gradle init --type basic</code>. When prompted, select <strong>Kotlin</strong>.</li>
+                <li>From your working directory, run this command to create the necessary folder structure: <code>mkdir -p src/main/java</code>.</li>
+                <li>In this folder, create a new <code>.java</code>file. This file must match the public class name in the build and java files.</li>
+                <li>After you've copied the code into your project, use <code>gradle run</code> to build and run your applicaiton.</li>
+              </ul>
+            </p><br />
+            <p><strong>Gradle Build File</strong></p>
+            <p>Copy this code into <code>build.gradle.kts</code> in your working directory. This file was created during initialization.
+            <pre>plugins {
+    java
+    application
+}
+application {
+    mainClassName = "{{ functionName }}"
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile("com.squareup.okhttp:okhttp:2.5.0")
+    compile("com.google.code.gson:gson:2.8.5")
+}</pre><br />
+            <p><strong>Java Code</strong></p>
+            <p>Copy this code into a file named in the <code>src/main/java</code> directory: <code>{{functionName}}.java</code></p>
             <div id="git-btn-curl" align="right">
             <a href="https://github.com/erhopf/REST-templates/blob/master/Java/restTemplateSimple.java" target="_blank" class="btn btn-social btn-sm btn-github">
               <span class="fa fa-github"></span> Improve this template!
@@ -221,12 +250,12 @@ public class {{functionName}} {
 
     OkHttpClient client = new OkHttpClient();
 
-    public String {{ httpMethod }}() throws IOException {
+    public String {{ httpMethod }}() throws IOException {<span v-if="httpMethod !== 'get'">
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType,
-                "{{ jsonBody }}");
+                "{{ jsonBody }}");</span>
         Request request = new Request.Builder()
-                .url(url).{{ httpMethod }}(body)
+                .url(url).{{ httpMethod }}(<span v-if="httpMethod !== 'get'">body</span>)
                 <span v-if="authHeaders.includes('subscriptionKey')">.addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)</span><span v-if="authHeaders.includes('accessToken')">.addHeader("Authorization", "Bearer YOUR_ACCESS_TOKEN")</span><span v-if="contentTypeHeader.length > 1"><br/><span v-html="asciiQuadTab"></span>.addHeader("Content-type", "{{contentTypeHeader}}")</span><br /><span v-html="asciiQuadTab"></span>.build();
         Response response = client.newCall(request).execute();
         return response.body().string();
@@ -242,13 +271,14 @@ public class {{functionName}} {
     public static void main(String[] args) {
         try {
             {{functionName}} sampleRequest = new {{functionName}}();
-            String response = sampleRequest.post();
+            String response = sampleRequest.{{ httpMethod }}();
             System.out.println(prettify(response));
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 }</pre>
+        <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
         </div>
       </div>
     </div>

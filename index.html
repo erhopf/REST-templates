@@ -116,7 +116,7 @@ else:
 #and delete the condition statement that starts with if and ends with exit().
 #subscriptionKey = 'put_your_key_here'
 
-def {{ functionName }}:
+def {{ functionName }}():
     base_url = '{{ baseURL }}'
     path = '{{ resource }}'
     params = {<template v-for='param in params' v-if='(param.key.length > 0 && param.value.length > 0)'>
@@ -133,7 +133,7 @@ def {{ functionName }}:
 
     print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     {{ functionName }}()</pre>
           <a href="https://repl.it/languages" class="btn btn-success btn-lg btn-block" target="_blank">Test your code on repl.it</a>
           </div>

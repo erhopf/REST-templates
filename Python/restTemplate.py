@@ -55,5 +55,5 @@ def function_name():
     # when printed to terminal/console.
     print(json.dumps(response, sort_keys=True, indent=4, ensure_ascii=False, separators=(',', ': ')))
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     function_name()
